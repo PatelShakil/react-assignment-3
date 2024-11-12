@@ -1,0 +1,38 @@
+name: React CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use the appropriate version for your project
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Run build
+      - name: Build the Project
+        run: npm run build
+
+      # Run tests
+      - name: Run Tests
+        run: npm test
+        env:
+          CI: true
